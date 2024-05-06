@@ -1,6 +1,6 @@
 # Azure Functions Node.js Stream Sample
 
-The app in this repo streams a large file (96mb by default) named `input.txt` to a file `output.txt` and logs the progress.
+The app in this repo demonstrates the new Node.js [HTTP streams feature](https://aka.ms/AzFuncNodeHttpStreams) on Azure Functions. It streams a large file (96mb by default) named `temp/input.txt` to a file `temp/output.txt` and logs the progress. This app has http streams turned on by default, but you can change this (and other settings) by modifying the `src/constants.ts` file.
 
 ## Prerequsites
 
@@ -37,5 +37,11 @@ The app in this repo streams a large file (96mb by default) named `input.txt` to
 
 ## Next steps
 
-1. If you want to make it even more fun, change the value of `fileSize` in `src/constants.ts` to a larger value (the max as defined in `local.settings.json` above is 4 GB).
-2. If you haven't already, [read our blog post for this feature](https://aka.ms/AzFuncNodeHttpStreams).
+We recommend you play around with this app to really get a feel for the feature!
+
+1. Follow the steps above to run your app.
+2. Open a new terminal and run `npm watch`. This will ensure your running app is updated every time you save a file.
+3. Modify a setting in `src/constants.ts`, run the scripts mentioned above to simulate streaming a request or response, and see what happens!
+    - `enableHttpStream`: Set this to false to turn the stream feature off. In general, you will notice slower performance and more errors with this feature off.
+    - `sendRequestInChunks`: Set this to false to simulate different ways of sending a request to your app. The new streams feature will work regardless of how the request is sent, but without the new feature your app can fail in a variety of ways.
+    - `inputFileSize`: Set this to a higher value to test the limits of your app. Each time you change this value, you will need to run `npm run createInputFile` to re-generate the input file with a different size.
